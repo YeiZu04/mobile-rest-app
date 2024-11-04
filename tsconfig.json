@@ -1,6 +1,21 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true,  // Habilitar modo estricto para TypeScript
+    "target": "ESNext",  // Compila para la última versión de ECMAScript
+    "module": "commonjs",  // Módulo común de JavaScript
+    "jsx": "react-native",  // JSX para React Native
+    "allowSyntheticDefaultImports": true,  // Importaciones por defecto
+    "esModuleInterop": true,  // Interoperabilidad con módulos de ES
+    "skipLibCheck": true,  // Omitir la verificación de bibliotecas para mayor rapidez
+    "forceConsistentCasingInFileNames": true,  // Forzar nombres de archivo consistentes
+    "moduleResolution": "node",  // Resolver módulos como Node.js
+    "isolatedModules": true,  // Aislar módulos para compilar más rápido
+    "noEmit": true  // No emitir archivos, ya que Expo maneja la compilación
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
 }
