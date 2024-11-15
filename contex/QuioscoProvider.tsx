@@ -49,7 +49,7 @@ export const QuioscoProvider = ({ children, isAuthenticated }: { children: React
         return; // Evita la llamada si no hay token
       }
   
-      const { data } = await axios.get("http://209.50.54.241/api/categorias", {
+      const { data } = await axios.get("http://209.50.54.18/api/categorias", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -104,7 +104,7 @@ export const QuioscoProvider = ({ children, isAuthenticated }: { children: React
     const token = await AsyncStorage.getItem('AUTH_TOKEN');
   
     try {
-      const response = await axios.post('http://209.50.54.241/api/pedidos', {
+      const response = await axios.post('http://209.50.54.18/api/pedidos', {
         productos: pedido.map((prod) => ({
           id: prod.id,
           cantidad: prod.cantidad,

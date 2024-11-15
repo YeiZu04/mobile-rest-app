@@ -29,7 +29,7 @@ const LoginScreen = ({ navigation, setIsAuthenticated }) => {
     };
 
     try {
-      const response = await axios.post('http://209.50.54.241/api/registro', datos);
+      const response = await axios.post('http://209.50.54.18/api/registro', datos);
       const token = response.data.token;
       await AsyncStorage.setItem('AUTH_TOKEN', token);
       setIsAuthenticated(true);
@@ -43,7 +43,7 @@ const LoginScreen = ({ navigation, setIsAuthenticated }) => {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://209.50.54.241/api/login', { email, password });
+      const response = await axios.post('http://209.50.54.18/api/login', { email, password });
       const token = response.data.token;
       await AsyncStorage.setItem('AUTH_TOKEN', token);
       setIsAuthenticated(true);
