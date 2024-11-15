@@ -23,7 +23,7 @@ interface QuioscoContextProps {
 const QuioscoContext = createContext<QuioscoContextProps | undefined>(undefined);
 
 // Crear el proveedor
-export const QuioscoProvider = ({ children }: { children: ReactNode }) => {
+export const QuioscoProvider = ({ children, isAuthenticated }: { children: ReactNode, isAuthenticated: boolean }) => {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [categoriaActual, setCategoriaActual] = useState<Categoria | null>(null);
   const [modal, setModal] = useState(false);
@@ -43,8 +43,13 @@ export const QuioscoProvider = ({ children }: { children: ReactNode }) => {
   // Obtener categorías desde la API
   const obtenerCategorias = async () => {
     try {
-      const token = await AsyncStorage.getItem('AUTH_TOKEN');
-      const { data } = await axios.get('http://20.220.28.3/api/categorias', {
+      const token = await AsyncStorage.getItem("AUTH_TOKEN");
+      if (!token) {
+        console.log("Token de autenticación no encontrado");
+        return; // Evita la llamada si no hay token
+      }
+  
+      const { data } = await axios.get("http://209.50.54.241/api/categorias", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,13 +57,14 @@ export const QuioscoProvider = ({ children }: { children: ReactNode }) => {
       setCategorias(data.data);
       setCategoriaActual(data.data[0]); // Seleccionar la primera categoría por defecto
     } catch (error) {
-      console.error('Error al obtener las categorías:', error);
+      console.error("Error al obtener las categorías:", error);
     }
   };
-
+  
   useEffect(() => {
     obtenerCategorias();
-  }, []);
+  }, [isAuthenticated]); // Ejecución solo si el usuario está autenticado
+  
 
   // Manejar la selección de categoría
   const handleClickCategoria = (id: number) => {
@@ -98,7 +104,7 @@ export const QuioscoProvider = ({ children }: { children: ReactNode }) => {
     const token = await AsyncStorage.getItem('AUTH_TOKEN');
   
     try {
-      const response = await axios.post('http://20.220.28.3/api/pedidos', {
+      const response = await axios.post('http://209.50.54.241/api/pedidos', {
         productos: pedido.map((prod) => ({
           id: prod.id,
           cantidad: prod.cantidad,

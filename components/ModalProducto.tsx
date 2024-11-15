@@ -10,7 +10,7 @@ interface ModalProductoProps {
 }
 
 const ModalProducto: React.FC<ModalProductoProps> = ({ producto, onClose }) => {
-  const [cantidad, setCantidad] = useState(1);
+  const [cantidad, setCantidad] = useState(producto.cantidad || 1);
   const { handleAgregarPedido } = useQuiosco();
 
   const imagePath = getImagePath(producto.imagen);

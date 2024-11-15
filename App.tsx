@@ -39,7 +39,7 @@ export default function App() {
   }
 
   return (
-    <QuioscoProvider>
+    <QuioscoProvider isAuthenticated={isAuthenticated}>
       <NavigationContainer>
         <Stack.Navigator>
           {isAuthenticated ? (

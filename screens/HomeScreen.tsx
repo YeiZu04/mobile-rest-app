@@ -22,7 +22,7 @@ const HomeScreen = ({ navigation, setIsAuthenticated }) => {
       setIsLoading(true);
       try {
         const token = await AsyncStorage.getItem('AUTH_TOKEN');
-        const response = await axios.get('http://20.220.28.3/api/productos', {
+        const response = await axios.get('http://209.50.54.241/api/productos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

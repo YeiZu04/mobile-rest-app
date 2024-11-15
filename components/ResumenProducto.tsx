@@ -8,12 +8,17 @@ interface ResumenProductoProps {
 }
 
 const ResumenProducto: React.FC<ResumenProductoProps> = ({ producto }) => {
-  const { handleClickModal, handleSetProducto, handleEliminarProductoPedido  } = useQuiosco();
+  const {pedido, handleClickModal, handleSetProducto, handleEliminarProductoPedido  } = useQuiosco();
 
   // Función para abrir el modal y permitir la edición
   const editarProducto = () => {
-    handleSetProducto(producto); // Seleccionamos el producto
-    handleClickModal(); // Abrimos el modal
+    const productoExistente = pedido.find(item => item.id === producto.id);
+  
+  // Si el producto ya existe en el pedido, mantenemos la cantidad actual
+  const productoConCantidad = productoExistente ? { ...producto, cantidad: productoExistente.cantidad } : producto;
+
+  handleSetProducto(productoConCantidad); // Seleccionamos el producto con cantidad actual
+  handleClickModal(); // Abrimos el modal
   };
 
   return (
